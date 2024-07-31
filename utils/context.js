@@ -4,7 +4,7 @@ import { toEth } from "./utils";
 
 export async function swapEthToToken(tokenName, amount) {
   try {
-    const tx = { value: toWei(amount) };
+    let tx = { value: toWei(amount) };
     const contractObj = await contract();
     const data = await contractObj.swapEthToToken(tokenName, tx);
     const receipt = await data.wait();
