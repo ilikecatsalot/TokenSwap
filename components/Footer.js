@@ -39,7 +39,7 @@ const Footer = () => {
           <div className="space-y-3">
             <h3 className="tracking-wide uppercase text-[#7765F3]">Company</h3>
             <ul className="space-y-1 text-gray-50">
-              {footerMenu2.map((menu, i) => (
+              {["Privacy", "Terms of Service"].map((menu, i) => (
                 <li key={i + 1}>
                   <a rel="noopener noreferrer" href="#">
                     {menu}

@@ -30,7 +30,7 @@ const Selector = ({ defaultValue, ignoreValue, setToken, id }) => {
   const [menuItems, setMenuItems] = useState(getFilteredItems(ignoreValue));
 
   function getFilteredItems(ignoreValue) {
-    return menu.filter(item => item.key !== ignoreValue);
+    return menu.filter((item) => item["key"] !== ignoreValue);
   }
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Selector = ({ defaultValue, ignoreValue, setToken, id }) => {
   return (
     <Dropdown>
       <Dropdown.Button
-        style={{
+        css={{
           backgroundColor: selectedItem === DEFAULT_VALUE ? "#7765F3" : "#2c2f36"
         }}
       >

@@ -102,8 +102,8 @@ export async function getAllHistory() {
       historyId: history.historyId.toNumber(),
       tokenA: history.tokenA,
       tokenB: history.tokenB,
-      inputValue: toEth(history.inputValue),
-      outputValue: toEth(history.outputValue),
+      inputValue: toEth(history?.inputValue),
+      outputValue: toEth(history?.outputValue),
       userAddress: history.userAddress,
     }));
     return historyTransaction;

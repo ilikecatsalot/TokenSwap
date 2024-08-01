@@ -24,7 +24,7 @@ const SwapField = React.forwardRef(({ obj }, inputRef) => {
   )
 
 function getInputClassName() {
-  let className = 'w-full outline-none h-8 px-2 appearance-none text-3xl bg-transparent';
+  let className = 'w-full outline-none h-8 px-2 appearance-none text-3xl bg-transparent'
   return className;
 }
 })

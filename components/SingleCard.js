@@ -31,19 +31,16 @@ import {
   }, [name, walletAddress] );
 
   async function fetchTokenBalance() {
-    try {
       const bal = await getTokenBalance(name, walletAddress);
-      if (bal) {
         const fBal = ethers.utils.formatUnits(bal.toString(), 18);
         setBalance(fBal.toString());
-      } else {
-        console.error('Failed to fetch token balance: balance is undefined or null.');
-        setBalance('0'); // Optionally, you can set it to '0' or any other default value
-      }
-    } catch (error) {
-      console.error('Error fetching token balance:', error);
-      setBalance('0'); // Optionally, you can set it to '0' or any other default value
-    }
+        // console.error('Failed to fetch token balance: balance is undefined or null.');
+        // setBalance('0'); // Optionally, you can set it to '0' or any other default value
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching token balance:', error);
+    //   setBalance('0'); // Optionally, you can set it to '0' or any other default value
+    // }
   }
   
     
@@ -63,7 +60,7 @@ import {
     <img
     alt=""
     className="object-cover w-full h-62 bg-gray-500"
-    src={'img/${index + 1}.png'}
+    src={`img/${index + 1}.png`}
     />
     </a>
 
@@ -89,7 +86,7 @@ Get {name} token, limited supply avalible
     rounded-1-1g">
     <p className="text-sm">{name}</p>
     <p className="bg-zinc-800 p-0.5 px-3 ml-3 rounded-1g text-zinc-100">
-    (balance)
+    {balance}
     </p>
     </div>
     <div className="flex items-center p-2 px-2 bg-[#7765F31 rounded-r-1g">

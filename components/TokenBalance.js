@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import {
   ClipboardIcon,
   ClipboardCheckIcon,
+  PlusIcon,
 } from "@heroicons/react/outline";
 import { TransactionStatus } from "./index";
 import {
@@ -15,7 +16,7 @@ import {
 const TokenBalance = ({ name, walletAddress }) => {
   const [balance, setBalance] = useState("-");
   const [tokenAddress, setTokenAddress] = useState();
-  const [copyIcon, setCopyIcon] = useState(ClipboardIcon);
+  const [copyIcon, setCopyIcon] = useState({ icon: ClipboardIcon});
   const [txPending, setTxPending] = useState(false);
 
   const notifyError = (msg) => toast.error(msg, { duration: 6000 });
@@ -25,21 +26,22 @@ const TokenBalance = ({ name, walletAddress }) => {
     if (name && walletAddress) {
       fetchTokenBalance();
       fetchTokenAddress();
-    } else {
+    } else 
       setBalance("-");
-    }
+    
   }, [name, walletAddress]);
 
   async function fetchTokenBalance() {
-    try {
+    
       const bal = await getTokenBalance(name, walletAddress);
       const fBal = ethers.utils.formatUnits(bal.toString(), 18);
       setBalance(fBal.toString());
-    } catch (error) {
-      notifyError("Failed to fetch token balance.");
-      console.error(error);
-    }
-  }
+    } 
+    // catch (error) {
+    //   notifyError("Failed to fetch token balance.");
+    //   console.error(error);
+    // }
+  // }
 
   async function fetchTokenAddress() {
     try {
@@ -60,11 +62,11 @@ const TokenBalance = ({ name, walletAddress }) => {
         </p>
       </div>
       <div className="flex items-center p-2 px-2 bg-[#7765F3] rounded-r-lg">
-        <copyIcon
+        <copyIcon.icon
           className="h-6 cursor-pointer"
           onClick={() => {
             navigator.clipboard.writeText(tokenAddress);
-            setCopyIcon(ClipboardCheckIcon);
+            setCopyIcon({ icon : ClipboardCheckIcon} );
             setTimeout(() => setCopyIcon(ClipboardIcon), 2000); // Reset icon after 2 seconds
           }}
         />

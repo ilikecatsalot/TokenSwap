@@ -17,10 +17,10 @@ import { useAccount } from "wagmi";
 const SwapComponent = () => {
   const [srcToken, setSrcToken] = useState(ETH);
   const [destToken, setDestToken] = useState(DEFAULT_VALUE);
-  const [inputValue, setInputValue] = useState("");
-  const [outputValue, setOutputValue] = useState("");
-  const inputValueRef = useRef(null);
-  const outputValueRef = useRef(null);
+  const [inputValue, setInputValue] = useState();
+  const [outputValue, setOutputValue] = useState();
+  const inputValueRef = useRef();
+  const outputValueRef = useRef();
   const isReversed = useRef(false);
 
   const INCREASE_ALLOWANCE = "Increase allowance";
@@ -46,8 +46,8 @@ const SwapComponent = () => {
     setToken: setDestToken,
   };
 
-  const [srcTokenComp, setSrcTokenComp] = useState(null);
-  const [destTokenComp, setDestTokenComp] = useState(null);
+  const [srcTokenComp, setSrcTokenComp] = useState();
+  const [destTokenComp, setDestTokenComp] = useState();
   const [swapBtnText, setSwapBtnText] = useState(ENTER_AMOUNT);
   const [txPending, setTxPending] = useState(false);
 
@@ -135,7 +135,7 @@ const SwapComponent = () => {
     setSwapBtnText(SWAP);
   };
 
-  async function handleReverseExchange () {
+  async function handleReverseExchange (e) {
     // Setting the isReversed value to prevent the input/output values
     // being calculated in their respective side-effects
     isReversed.current = true;
@@ -147,7 +147,7 @@ const SwapComponent = () => {
     setDestToken(srcToken);
   };
 
-  async function getSwapBtnClassName () {
+  function getSwapBtnClassName () {
     let className = "p-4 w-full my-2 rounded-xl ";
     className +=
       swapBtnText === ENTER_AMOUNT || swapBtnText === CONNECT_WALLET
@@ -157,7 +157,7 @@ const SwapComponent = () => {
     return className;
   };
 
-  async function populateOutputValue () {
+  function populateOutputValue () {
     if (destToken === DEFAULT_VALUE || srcToken === DEFAULT_VALUE || !inputValue) return;
     try {
       if (srcToken !== ETH && destToken !== ETH) setOutputValue(inputValue);
@@ -173,10 +173,10 @@ const SwapComponent = () => {
     }
   };
 
-  async function populateInputValue () {
+  function populateInputValue () {
     if (destToken === DEFAULT_VALUE || srcToken === DEFAULT_VALUE || !outputValue) return;
     try {
-      if (srcToken === ETH && destToken === ETH) setInputValue(outputValue);
+      if (srcToken !== ETH && destToken !== ETH) setInputValue(outputValue);
       else if (srcToken === ETH && destToken !== ETH) {
         const outValue = toEth(toWei(outputValue, 14));
         setInputValue(outValue);
@@ -207,7 +207,7 @@ const SwapComponent = () => {
     }
   };
 
-  async function handleInsufficientAllowance  ()  {
+  function handleInsufficientAllowance  ()  {
     notifyError(
       "Insufficient allowance. Click 'Increase allowance' to increase it."
     );
